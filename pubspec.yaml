@@ -38,6 +38,7 @@ dependencies:
   get: ^4.6.6
   sizer: ^2.0.15
   lottie: ^2.7.0
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -66,6 +67,7 @@ flutter:
       - assets/app-logo.png
       - assets/1app-logo.png
       - assets/lottie/delivery-service.json
+      - assets/lottie/coin-animation.json
       - assets/download.jfif
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

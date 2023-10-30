@@ -1,13 +1,14 @@
-import 'package:ecommerce_ui/view/welcome/screen_welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:sizer/sizer.dart';
+import 'routes/routes.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    statusBarColor: Colors.white, // Set the status bar color
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor:
+        Color.fromARGB(255, 39, 105, 42), // Set the status bar color
     statusBarIconBrightness: Brightness.dark,
   ));
   runApp(const MyApp());
@@ -19,14 +20,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(
-        builder: (context, orientation, deviceType) => GetMaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'E-commerce',
-            theme: ThemeData(
-              scaffoldBackgroundColor: Colors.white,
-              primaryColor: Colors.green,
-              appBarTheme: AppBarTheme(color: Colors.green),
-            ),
-            home: const ScreenWelcome()));
+      builder: (context, orientation, deviceType) => GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'E-commerce',
+        theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          primaryColor: Colors.green,
+          appBarTheme: const AppBarTheme(color: Colors.green),
+        ),
+        initialRoute: AppRoutes.welcome, // Set the initial route
+        getPages: AppRoutes.routes,
+      ),
+    );
   }
 }
