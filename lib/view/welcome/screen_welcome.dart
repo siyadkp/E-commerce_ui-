@@ -1,9 +1,9 @@
-import 'package:ecommerce_ui/routes/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../../res/images/images.dart';
 import '../../res/texts/texts.dart';
+import '../../widgets/buttons/animation_button/animation_button.dart';
+import '../../widgets/custom_appbar/custom_appBar.dart';
 
 class ScreenWelcome extends StatelessWidget {
   const ScreenWelcome({Key? key}) : super(key: key);
@@ -25,36 +25,13 @@ class ScreenWelcome extends StatelessWidget {
 
   // Private method to create the "Start" button
   Widget _buildStartButton() {
-    return GestureDetector(
-      onTap: () => Get.offNamedUntil(AppRoutes.login, (route) => false),
-      child: const Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 26,
-            child: Text(
-              'Start',
-              style: TextStyle(
-                color: Colors.green,
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-          Icon(
-            Icons.arrow_forward_sharp,
-            color: Color.fromARGB(255, 119, 168, 121),
-            size: 20,
-          ),
-        ],
-      ),
-    );
+    return const AnimatedGetStartedButton();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: customAppBar(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

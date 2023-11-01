@@ -1,54 +1,58 @@
+import 'package:ecommerce_ui/controller/getx/user_controller/user_controller.dart';
+import 'package:ecommerce_ui/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+
 import '../../res/images/images.dart';
 import '../../widgets/buttons/buttons.dart';
+import '../../widgets/custom_appbar/custom_appBar.dart';
 import '../../widgets/text_form_field/text_form_field.dart';
-import '../screen_welcome_with_user_name/screen_welcome_with_user_name.dart';
 
 class ScreenLogin extends StatelessWidget {
-  const ScreenLogin({Key? key});
+  ScreenLogin({super.key});
+
+  // Create an instance of the UserController using GetX
+  final userController = Get.put(UserController());
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Private method to create the app logo image
   Widget _buildAppLogo() {
     return Center(
       child: Image.asset(
         KImages.appLogo,
-        width: 150, // Adjust the width as needed
+        width: 150,
       ),
     );
   }
 
-  // Private method to create a text form field with a title and hint
-  Widget _buildTextFormField(
-      {required String title, required String hintText}) {
-    return TextFormFieldStyle(
-      title: title,
-      hintText: hintText,
-    );
-  }
-
   // Private method to create the login button
-  Widget _buildLoginButton() {
+  Widget _buildLoginButton(context) {
     return KButtons.elevatedButton(
-      text: 'Login',
-      onPressed: () => Get.to(const ScreenWelcomeWithUserName()),
-    );
+        text: 'Login',
+        onPressed: () {
+          if (_formKey.currentState!.validate()) {
+            userController.userLogin();
+            Get.toNamed(AppRoutes.welcomeWithUserName);
+          }
+        });
   }
 
-  // Private method to create the "Sign up" text and button
+  // Private method to create the "Logim" text and button
   Widget _buildSignUpTextAndButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Are you a new User?',
+          'Are you admin?', // Change the text here
           style: TextStyle(fontSize: 3.w, fontWeight: FontWeight.w500),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: () {
+            // Implement the admin login logic here
+          },
           child: Text(
-            'Sign up',
+            'Login as Admin', // Change the button text here
             style: TextStyle(
               fontSize: 3.2.w,
               fontWeight: FontWeight.w600,
@@ -63,21 +67,28 @@ class ScreenLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildAppLogo(),
-          _buildTextFormField(
-            title: 'User name',
-            hintText: 'Enter your username',
-          ),
-          _buildTextFormField(
-            title: 'Phone number',
-            hintText: 'Enter your Phone number',
-          ),
-          _buildLoginButton(),
-          _buildSignUpTextAndButton(),
-        ],
+      appBar: customAppBar(),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            _buildAppLogo(),
+            TextFormFieldWidget(
+              title: 'User name',
+              hintText: 'Enter your username',
+              controller: userController.userName,
+            ),
+            TextFormFieldWidget(
+              title: 'Phone number',
+              hintText: 'Enter your Phone number',
+              controller: userController.phoneNumber,
+              keyboardType: TextInputType.phone,
+            ),
+            _buildLoginButton(context),
+            _buildSignUpTextAndButton(),
+          ],
+        ),
       ),
     );
   }

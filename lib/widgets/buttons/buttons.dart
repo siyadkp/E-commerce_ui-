@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 class KButtons {
-  // Elevated Button with custom properties.
+  // Elevated Button with custom properties ------------------------------------
   static SizedBox elevatedButton({
     required String text,
     required Function() onPressed,
+    Icon? icon,
     double borderRadius = 25,
     double width = 85,
     double height = 12,
@@ -23,18 +24,19 @@ class KButtons {
             backgroundColor: MaterialStateProperty.all(Colors.green),
           ),
           onPressed: onPressed,
-          child: Text(
-            text,
-            style: const TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          child: icon ??
+              Text(
+                text,
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
         ),
       );
 
-  // Outline Button with custom properties.
+  // Outline Button with custom properties -------------------------------------
   static SizedBox outlineButton({
     required String text,
     required Function() onPressed,

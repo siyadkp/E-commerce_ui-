@@ -1,16 +1,20 @@
+import 'package:ecommerce_ui/controller/getx/home_controller/home_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:sizer/sizer.dart';
+import 'controller/database_functions/database_connection/database_connection.dart';
+import 'controller/getx/getx_binding/getx_binding.dart';
 import 'routes/routes.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor:
-        Color.fromARGB(255, 39, 105, 42), // Set the status bar color
-    statusBarIconBrightness: Brightness.dark,
-  ));
+  await Hive.initFlutter();
+  await DataBaseConnection.dataBaseConnection();
+  final HomeController dabaseCURDfunctionController = Get.put(HomeController());
+  dabaseCURDfunctionController.getAllProductDataFromApi();
+  // notificationBar();
+
   runApp(const MyApp());
 }
 
@@ -22,13 +26,13 @@ class MyApp extends StatelessWidget {
     return Sizer(
       builder: (context, orientation, deviceType) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'E-commerce',
+        initialBinding: ControllerBind(),
+        title: 'E-Mart',
         theme: ThemeData(
           scaffoldBackgroundColor: Colors.white,
           primaryColor: Colors.green,
-          appBarTheme: const AppBarTheme(color: Colors.green),
         ),
-        initialRoute: AppRoutes.welcome, // Set the initial route
+        initialRoute: AppRoutes.splash,
         getPages: AppRoutes.routes,
       ),
     );
