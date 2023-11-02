@@ -1,17 +1,24 @@
-import 'package:ecommerce_ui/routes/routes.dart';
-import 'package:ecommerce_ui/view/splash/screen_splash.dart';
+import 'package:ecommerce_ui/controller/network_connection_handling/network_connection_handling.dart';
+import 'package:ecommerce_ui/widgets/buttons/buttons.dart';
 import 'package:flutter/material.dart';
 
-class ScreeNoInternet extends StatelessWidget {
-  const ScreeNoInternet({super.key});
+class ScreenNoInternet extends StatefulWidget {
+  const ScreenNoInternet({super.key});
+
+  @override
+  State<ScreenNoInternet> createState() => _ScreenNoInternetState();
+}
+
+class _ScreenNoInternetState extends State<ScreenNoInternet> {
+  @override
+  void initState() {
+    InternetConnectionActivity.stopTimer();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final ScreenSplash splash = ScreenSplash();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('No Internet Connection'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -38,12 +45,13 @@ class ScreeNoInternet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () {
-                AppRoutes.initialNavigation();
-              },
-              child: const Text('Retry'),
-            ),
+            KButtons.elevatedButton(
+              text: 'Retry',
+              borderRadius: 10,
+              width: 20,
+              height: 10,
+              onPressed: () => InternetConnectionActivity.initialNavigation(),
+            )
           ],
         ),
       ),

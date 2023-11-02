@@ -36,7 +36,9 @@ class SearchBarWithButtonsWidget extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.black),
               ),
               suffixIcon: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  homeController.scanBarcode();
+                },
                 icon: const Icon(Icons.barcode_reader),
               ),
             ),

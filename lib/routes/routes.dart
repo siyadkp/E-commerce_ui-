@@ -1,15 +1,12 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:ecommerce_ui/view/edit_profile/edit_profile.dart';
 import 'package:ecommerce_ui/view/home/screen_home.dart';
 import 'package:ecommerce_ui/view/login/screen_login.dart';
-import 'package:ecommerce_ui/view/no_internet/scree_no_internet.dart';
+import 'package:ecommerce_ui/view/no_internet/screen_no_internet.dart';
 import 'package:ecommerce_ui/view/payment/screen_payment.dart';
 import 'package:ecommerce_ui/view/screen_welcome_with_user_name/screen_welcome_with_user_name.dart';
 import 'package:ecommerce_ui/view/splash/screen_splash.dart';
 import 'package:ecommerce_ui/view/welcome/screen_welcome.dart';
 import 'package:get/get.dart';
-
-import '../controller/getx/user_controller/user_controller.dart';
 
 class AppRoutes {
   // Define constants for route names
@@ -25,7 +22,7 @@ class AppRoutes {
   // Create a list of GetPage objects to configure your routes
   static final List<GetPage> routes = [
     GetPage(name: splash, page: () => const ScreenSplash()),
-    GetPage(name: noInternet, page: () => const ScreeNoInternet()),
+    GetPage(name: noInternet, page: () => const ScreenNoInternet()),
     GetPage(name: welcome, page: () => const ScreenWelcome()),
     GetPage(name: login, page: () => ScreenLogin()),
     GetPage(
@@ -35,22 +32,4 @@ class AppRoutes {
     GetPage(name: itemScanning, page: () => ScreenHome()),
     GetPage(name: payment, page: () => ScreenPayment()),
   ];
-
-  // Function to handle the navigation logic
-  static initialNavigation() async {
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    final userController = Get.find<UserController>();
-    await userController.getUserData();
-    if (connectivityResult == ConnectivityResult.none) {
-      Get.offNamedUntil(AppRoutes.noInternet, (route) => false);
-    }
-    // Check if the user is logged in or not
-    else if (userController.user == null) {
-      // Navigate to the welcome screen if the user is not logged in
-      Get.offNamedUntil(AppRoutes.welcome, (route) => false);
-    } else {
-      // Navigate to the item scanning screen if the user is logged in
-      Get.offNamedUntil(AppRoutes.itemScanning, (route) => false);
-    }
-  }
 }

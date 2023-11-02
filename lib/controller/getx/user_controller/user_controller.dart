@@ -41,6 +41,7 @@ class UserController extends GetxController {
 
     // Retrieve the user data from the database
     user = await UserDB.getUserData();
+    update();
   }
 
   // Method to update user's reward points

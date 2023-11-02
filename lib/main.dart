@@ -1,5 +1,6 @@
-import 'package:ecommerce_ui/controller/getx/home_controller/home_controller.dart';
+import 'package:ecommerce_ui/controller/network_connection_handling/network_connection_handling.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:sizer/sizer.dart';
@@ -11,20 +12,21 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await DataBaseConnection.dataBaseConnection();
-  final HomeController dabaseCURDfunctionController = Get.put(HomeController());
-  dabaseCURDfunctionController.getAllProductDataFromApi();
-
-  runApp(const MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const MyApp());
+  });
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Sizer(
       builder: (context, orientation, deviceType) => GetMaterialApp(
         debugShowCheckedModeBanner: false,
+        navigatorKey: InternetConnectionActivity.navigatorKey,
         initialBinding: ControllerBind(),
         title: 'E-Mart',
         theme: ThemeData(

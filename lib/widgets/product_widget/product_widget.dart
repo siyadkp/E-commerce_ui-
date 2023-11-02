@@ -40,6 +40,16 @@ class ProductWidget extends StatelessWidget {
                   productData.image,
                   width: 106,
                   height: 86,
+                  errorBuilder: (BuildContext context, Object exception,
+                      StackTrace? stackTrace) {
+                    return const Column(
+                      children: [
+                        Center(
+                            child:
+                                Icon(Icons.error, size: 48, color: Colors.red)),
+                      ],
+                    );
+                  },
                 ),
               ),
             ),
@@ -70,7 +80,7 @@ class ProductWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    '\$${productData.price}',
+                    '₹${productData.price}',
                     style:
                         TextStyle(fontSize: 4.w, fontWeight: FontWeight.w500),
                   ),

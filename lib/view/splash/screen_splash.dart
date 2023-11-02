@@ -1,4 +1,4 @@
-import 'package:ecommerce_ui/routes/routes.dart';
+import 'package:ecommerce_ui/controller/network_connection_handling/network_connection_handling.dart';
 import 'package:flutter/material.dart';
 
 class ScreenSplash extends StatefulWidget {
@@ -11,9 +11,8 @@ class ScreenSplash extends StatefulWidget {
 class _ScreenSplashState extends State<ScreenSplash> {
   @override
   void initState() {
+    InternetConnectionActivity.initialNavigation();
     super.initState();
-    // Initiate the navigation process
-    AppRoutes.initialNavigation();
   }
 
   @override

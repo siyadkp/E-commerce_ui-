@@ -57,6 +57,7 @@ class TextFormFieldWidget extends StatelessWidget {
                     return 'This phone number is not valied';
                   }
                 }
+                return null;
               },
             ),
           ),

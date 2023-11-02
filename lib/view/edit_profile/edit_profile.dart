@@ -2,7 +2,6 @@ import 'package:ecommerce_ui/controller/getx/user_controller/user_controller.dar
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
-import '../../routes/routes.dart';
 import '../../widgets/buttons/buttons.dart';
 import '../../widgets/custom_appbar/custom_appBar.dart';
 import '../../widgets/text_form_field/text_form_field.dart';
@@ -58,7 +57,7 @@ class ScreenEditUserProfile extends StatelessWidget {
                     ),
                   );
                   // Navigate back to the welcome screen
-                  Get.toNamed(AppRoutes.welcomeWithUserName);
+                  Get.back();
                 }
               },
             ),
