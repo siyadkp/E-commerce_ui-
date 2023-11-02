@@ -19,6 +19,14 @@ class ProductDB {
     // Note: The code "await getAllProductDatas();" doesn't seem necessary here.
   }
 
+  static Future<void> updateProductQty(
+      {required int qty, required String key}) async {
+    ProductModel oldProductData = findProductDataWithBarcodeNumber(key)!;
+    int oldProductDataQty = oldProductData.qty;
+    oldProductData.qty = oldProductDataQty - qty;
+    updateProductData(oldProductData);
+  }
+
   // Method to retrieve all product data from the Hive box
   static Future<List<ProductModel>> getAllProductDatas() async {
     return productDB.values.toList();

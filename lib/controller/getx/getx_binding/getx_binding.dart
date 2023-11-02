@@ -6,8 +6,8 @@ import 'package:get/get.dart';
 class ControllerBind extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<HomeController>(() => HomeController());
-    Get.lazyPut<UserController>(() => UserController());
-    Get.lazyPut<CartController>(() => CartController());
+    Get.put<HomeController>(HomeController());
+    Get.put<UserController>(UserController());
+    Get.put<CartController>(CartController());
   }
 }

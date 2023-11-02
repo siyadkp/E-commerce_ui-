@@ -12,24 +12,34 @@ class ProductAddButtonWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        OutlinedButton(
-          onPressed: () {
-            cartController.addToCart(productData);
-          },
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
+        productData.qty <= 0
+            ? const Text(
+                'Out of stock',
+                style: TextStyle(color: Colors.red),
+              )
+            : OutlinedButton(
+                onPressed: () {
+                  cartController.addToCart(productData);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Your product added to cart'),
+                    ),
+                  );
+                },
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  side: MaterialStateProperty.all<BorderSide>(
+                    const BorderSide(
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+                child: const Text('Add', style: TextStyle(color: Colors.green)),
               ),
-            ),
-            side: MaterialStateProperty.all<BorderSide>(
-              const BorderSide(
-                color: Colors.green,
-              ),
-            ),
-          ),
-          child: const Text('Add', style: TextStyle(color: Colors.green)),
-        ),
       ],
     );
   }

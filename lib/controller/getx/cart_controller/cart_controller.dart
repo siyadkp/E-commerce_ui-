@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/controller/database_functions/product_db_functions/product_db_functions.dart';
 import 'package:get/get.dart';
 import '../../../model/product_model/product_model.dart';
 
@@ -46,7 +47,11 @@ class CartController extends GetxController {
   }
 
   // Clear the cart and reset the total amount
-  cartClearing() {
+  paymentSuceess() {
+    cartProducts.forEach((key, value) {
+      ProductDB.updateProductQty(
+          key: value.barcodeNumber, qty: value.inCartQty);
+    });
     cartProducts.clear();
     totalAmount = 0;
     update();

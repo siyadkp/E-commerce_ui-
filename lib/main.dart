@@ -13,7 +13,6 @@ void main() async {
   await DataBaseConnection.dataBaseConnection();
   final HomeController dabaseCURDfunctionController = Get.put(HomeController());
   dabaseCURDfunctionController.getAllProductDataFromApi();
-  // notificationBar();
 
   runApp(const MyApp());
 }

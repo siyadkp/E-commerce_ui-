@@ -35,6 +35,11 @@ class QtyButttonWidget extends StatelessWidget {
                         child: const Text('OK'),
                         onPressed: () async {
                           await cartController.removeFromCart(productData);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Your product removed from cart'),
+                            ),
+                          );
                           Get.back();
                         },
                       )

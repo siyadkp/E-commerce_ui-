@@ -25,53 +25,54 @@ class ScreenEditUserProfile extends StatelessWidget {
     userController.controllerDataLoading();
     return Form(
       key: _formKey,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _buildHeader(),
-          SizedBox(
-            height: 6.h,
-          ),
-          TextFormFieldWidget(
-            title: 'User name',
-            hintText: 'Enter your username',
-            controller: userController.userName,
-          ),
-          TextFormFieldWidget(
-            title: 'Phone number',
-            hintText: 'Enter your Phone number',
-            controller: userController.phoneNumber,
-          ),
-          SizedBox(
-            height: 6.h,
-          ),
-          KButtons.elevatedButton(
-            text: 'Update',
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                // Update user data and show a success message
-                userController
-                    .userDataUpdate(userController.user!.rewardPoints);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('User profile updated'),
-                  ),
-                );
-                // Navigate back to the welcome screen
-                Get.toNamed(AppRoutes.welcomeWithUserName);
-              }
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          KButtons.outlineButton(
-            text: 'Go to Back',
-            height: 12,
-            width: 85,
-            onPressed: () => Get.back(),
-          )
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildHeader(),
+            SizedBox(
+              height: 6.h,
+            ),
+            TextFormFieldWidget(
+              title: 'User name',
+              hintText: 'Enter your username',
+              controller: userController.userName,
+            ),
+            TextFormFieldWidget(
+              title: 'Phone number',
+              hintText: 'Enter your Phone number',
+              controller: userController.phoneNumber,
+            ),
+            SizedBox(
+              height: 6.h,
+            ),
+            KButtons.elevatedButton(
+              text: 'Update',
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  // Update user data and show a success message
+                  userController
+                      .userDataUpdate(userController.user!.rewardPoints);
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('User profile updated'),
+                    ),
+                  );
+                  // Navigate back to the welcome screen
+                  Get.toNamed(AppRoutes.welcomeWithUserName);
+                }
+              },
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            KButtons.outlineButton(
+              text: 'Go to Back',
+              height: 12,
+              width: 85,
+              onPressed: () => Get.back(),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -80,7 +81,7 @@ class ScreenEditUserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: customAppBar(),
-      body: _buildContent(context),
+      body: Center(child: _buildContent(context)),
     );
   }
 }
