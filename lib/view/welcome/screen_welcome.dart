@@ -8,7 +8,7 @@ import '../../widgets/custom_appbar/custom_appBar.dart';
 class ScreenWelcome extends StatelessWidget {
   const ScreenWelcome({Key? key}) : super(key: key);
 
-  // Private method to create the app logo image
+  // Private method to create the app logo image -------------------------------
   Widget _buildAppLogo() {
     return Center(
       child: Image.asset(
@@ -18,12 +18,12 @@ class ScreenWelcome extends StatelessWidget {
     );
   }
 
-  // Private method to create the application name text
+  // Private method to create the application name text ------------------------
   Widget _buildAppNameText() {
     return KText.applicationName;
   }
 
-  // Private method to create the "Start" button
+  // Private method to create the "Start" button -------------------------------
   Widget _buildStartButton() {
     return const AnimatedGetStartedButton();
   }

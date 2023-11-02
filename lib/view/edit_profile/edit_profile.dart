@@ -10,7 +10,7 @@ class ScreenEditUserProfile extends StatelessWidget {
   ScreenEditUserProfile({super.key});
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Build the header section
+  // Build the header section --------------------------------------------------
   Widget _buildHeader() {
     return const Text(
       'Edit Profile',
@@ -18,7 +18,7 @@ class ScreenEditUserProfile extends StatelessWidget {
     );
   }
 
-  // Build the content section
+  // Build the content section -------------------------------------------------
   Widget _buildContent(context) {
     final userController = Get.put(UserController());
     userController.controllerDataLoading();
@@ -56,7 +56,6 @@ class ScreenEditUserProfile extends StatelessWidget {
                       content: Text('User profile updated'),
                     ),
                   );
-                  // Navigate back to the welcome screen
                   Get.back();
                 }
               },

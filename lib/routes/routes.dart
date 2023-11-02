@@ -9,7 +9,7 @@ import 'package:ecommerce_ui/view/welcome/screen_welcome.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
-  // Define constants for route names
+  // Define constants for route names ------------------------------------------
   static const splash = '/';
   static const noInternet = '/no_internet';
   static const welcome = '/welcome';
@@ -19,7 +19,7 @@ class AppRoutes {
   static const itemScanning = '/item_scanning';
   static const payment = '/payment';
 
-  // Create a list of GetPage objects to configure your routes
+  // Create a list of GetPage objects to configure your routes -----------------
   static final List<GetPage> routes = [
     GetPage(name: splash, page: () => const ScreenSplash()),
     GetPage(name: noInternet, page: () => const ScreenNoInternet()),

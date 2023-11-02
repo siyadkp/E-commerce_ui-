@@ -10,8 +10,8 @@ class BarcodeScanner {
 
     if (status.isGranted) {
       String barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-        '#FF0000', // Color for the scan button
-        'Cancel', // Text for the cancel button
+        '#FF0000', 
+        'Cancel', 
         true,
         ScanMode.BARCODE,
       );

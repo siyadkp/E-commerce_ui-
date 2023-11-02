@@ -14,10 +14,10 @@ import 'products_view_builder/products_view_builder.dart';
 class ScreenHome extends StatelessWidget {
   ScreenHome({super.key});
 
-  // Create instances of controllers using GetX
+  // Create instances of controllers using GetX --------------------------------
   final HomeController homeController = Get.put(HomeController());
 
-  // Private method to build the header section
+  // Private method to build the header section --------------------------------
   Widget _buildHeader() {
     return Container(
       height: 20.h,

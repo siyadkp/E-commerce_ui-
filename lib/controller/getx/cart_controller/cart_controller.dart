@@ -6,7 +6,7 @@ class CartController extends GetxController {
   final cartProducts = <String, ProductModel>{};
   double totalAmount = 0;
 
-  // Check if a product with a given key is already in the cart
+  // Check if a product with a given key is already in the cart ----------------
   containsCartProduct(String key) {
     if (cartProducts.isNotEmpty && cartProducts.containsKey(key)) {
       return true;
@@ -14,7 +14,7 @@ class CartController extends GetxController {
     return false;
   }
 
-  // Add a product to the cart
+  // Add a product to the cart -------------------------------------------------
   Future<void> addToCart(ProductModel productData) async {
     final key = productData.barcodeNumber;
     if (cartProducts.containsKey(key)) {
@@ -33,7 +33,7 @@ class CartController extends GetxController {
     update();
   }
 
-  // Calculate the total amount in the cart
+  // Calculate the total amount in the cart ------------------------------------
   totalAmountCalculator(ProductModel productData, {bool isAdded = false}) {
     double productPrice = productData.price;
     double originalValue;
@@ -46,7 +46,7 @@ class CartController extends GetxController {
     update();
   }
 
-  // Clear the cart and reset the total amount
+  // Clear the cart and reset the total amount ---------------------------------
   paymentSuceess() {
     cartProducts.forEach((key, value) {
       ProductDB.updateProductQty(
@@ -57,7 +57,7 @@ class CartController extends GetxController {
     update();
   }
 
-  // Remove a product from the cart
+  // Remove a product from the cart --------------------------------------------
   Future<void> removeFromCart(ProductModel productData) async {
     final key = productData.barcodeNumber;
     if (cartProducts[key]!.inCartQty <= 1) {

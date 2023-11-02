@@ -10,7 +10,7 @@ class HomeController extends GetxController {
   final searchBarTextEditingController = TextEditingController();
   RxList<ProductModel> productDatas = RxList<ProductModel>();
 
-  // Method to retrieve all product data from the API
+  // Method to retrieve all product data from the API --------------------------
   Future<void> getAllProductDataFromApi() async {
     productDatas.clear();
 
@@ -37,7 +37,7 @@ class HomeController extends GetxController {
     update();
   }
 
-  // Method to find product data with a barcode number
+  // Method to find product data with a barcode number -------------------------
   Future<void> findProductDataWithBarcodeNumber() async {
     productDatas.clear();
 

@@ -24,7 +24,7 @@ class _ScreenNoInternetState extends State<ScreenNoInternet> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Icon(
-              Icons.signal_wifi_off, // You can use any icon you prefer
+              Icons.signal_wifi_off,
               size: 96.0,
               color: Colors.red,
             ),

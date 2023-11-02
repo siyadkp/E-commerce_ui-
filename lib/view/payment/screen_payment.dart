@@ -19,12 +19,12 @@ class ScreenPayment extends StatelessWidget {
   double redeemedRewardPointes = 0;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // Handle successful payment
+  // Handle successful payment -------------------------------------------------
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     final userController = Get.find<UserController>();
     final cartController = Get.find<CartController>();
 
-    // Clear the cart and update user's reward points
+    // Clear the cart and update user's reward points and update qty -----------
     cartController.paymentSuceess();
     userController.updateUserRewardPoints(redeemedRewardPointes);
     ScaffoldMessenger.of(_scaffoldKey.currentContext!).showSnackBar(
@@ -32,7 +32,7 @@ class ScreenPayment extends StatelessWidget {
         content: Text('Payment was successful!'),
       ),
     );
-    // Navigate back to the item scanning screen
+    // Navigate back to the item scanning screen -------------------------------
     Get.offNamedUntil(AppRoutes.itemScanning, (route) => false);
   }
 
@@ -45,21 +45,21 @@ class ScreenPayment extends StatelessWidget {
     );
   }
 
-  // Handle payment through an external wallet
+  // Handle payment through an external wallet ---------------------------------
   void _handleExternalWallet(ExternalWalletResponse response) {}
 
-  // Initiate the RazorPay payment process
+  // Initiate the RazorPay payment process -------------------------------------
   void razorPay(double amount) {
     final razorpayPaymentGateway = RazorpayPaymentGateway();
 
-    // Calculate the total amount after deducting redeemed reward points
+    // Calculate the total amount after deducting redeemed reward points -------
     double totalAmount = amount - redeemedRewardPointes;
 
-    // Convert the total amount to paisa (e.g., 10000 for ₹100)
+    // Convert the total amount to paisa (10000 for ₹100) ----------------------
     int payAmountInPaisa = (totalAmount * 100).toInt();
 
     var options = {
-      'key': razorpayPaymentGateway.getkey(), // Replace with your RazorPay key
+      'key': razorpayPaymentGateway.getkey(),
       'amount': payAmountInPaisa,
       'name': 'E-Mart',
       'description': 'Payment for the product',
@@ -75,7 +75,7 @@ class ScreenPayment extends StatelessWidget {
     }
   }
 
-  // Builds the checkout header section
+  // Builds the checkout header section ----------------------------------------
   Widget _buildCheckoutHeader(String items) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +97,7 @@ class ScreenPayment extends StatelessWidget {
     );
   }
 
-  // Builds the list of products in the cart
+  // Builds the list of products in the cart -----------------------------------
   Widget _buildProductList(List<ProductModel> cartProducts) {
     return Column(
       children: List.generate(cartProducts.length, (index) {
@@ -106,7 +106,7 @@ class ScreenPayment extends StatelessWidget {
     );
   }
 
-  // Builds the total amount section and handles reward points
+  // Builds the total amount section and handles reward points -----------------
   Widget _buildTotalAmount({required double amount}) {
     double haifOftheAmount = amount / 2;
     double totalAmount = 0;
@@ -166,7 +166,7 @@ class ScreenPayment extends StatelessWidget {
     ]);
   }
 
-  // Builds the payment button
+  // Builds the payment button -------------------------------------------------
   Widget _buildPaymentButton(double totalAmount, context) {
     return Padding(
       padding: const EdgeInsets.symmetric(

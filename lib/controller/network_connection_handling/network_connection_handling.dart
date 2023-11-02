@@ -12,7 +12,7 @@ class InternetConnectionActivity {
       GlobalKey<NavigatorState>();
   static Timer? _internetCheckTimer;
 
-  // Function to handle the navigation logic
+  // Function to handle the navigation logic -----------------------------------
   static initialNavigation() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
     final HomeController dabaseCURDfunctionController =

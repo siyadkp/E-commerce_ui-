@@ -6,12 +6,12 @@ import 'package:get/get.dart';
 double userRewardPointes = 0;
 
 class UserController extends GetxController {
-  // Text controllers for user input fields
+  // Text controllers for user input fields ------------------------------------
   TextEditingController userName = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   UserModel? user;
 
-  // Method to handle user login
+  // Method to handle user login -----------------------------------------------
   Future<void> userLogin() async {
     // Create a new user data model
     final userData = UserModel(
@@ -27,7 +27,7 @@ class UserController extends GetxController {
     user = await UserDB.getUserData();
   }
 
-  // Method to update user data
+  // Method to update user data ------------------------------------------------
   Future<void> userDataUpdate(double rewardPoints) async {
     // Create a user data model with updated information
     final userData = UserModel(
@@ -36,15 +36,15 @@ class UserController extends GetxController {
       rewardPoints: rewardPoints,
     );
 
-    // Update the user data in the database
+    // Update the user data in the database ------------------------------------
     UserDB.insertUserData(userData);
 
-    // Retrieve the user data from the database
+    // Retrieve the user data from the database --------------------------------
     user = await UserDB.getUserData();
     update();
   }
 
-  // Method to update user's reward points
+  // Method to update user's reward points -------------------------------------
   Future<void> updateUserRewardPoints(double redeemedRewardPoints) async {
     // Calculate the new reward points after redemption
     final currentRewardPoints = user?.rewardPoints ?? 0;
@@ -60,17 +60,17 @@ class UserController extends GetxController {
     // Update the user data in the database
     UserDB.insertUserData(userData);
 
-    // Retrieve the user data from the database and update the controller
+    // Retrieve the user data from the database and update the controller ------
     user = await UserDB.getUserData();
     update();
   }
 
-  // Method to retrieve user data
+  // Method to retrieve user data ----------------------------------------------
   Future<void> getUserData() async {
     user = await UserDB.getUserData();
   }
 
-  // Method to load user data into the controller for UI display
+  // Method to load user data into the controller for UI display ---------------
   Future<void> controllerDataLoading() async {
     userName = TextEditingController(text: user?.userNmae);
     phoneNumber = TextEditingController(text: user?.phoneNumber);

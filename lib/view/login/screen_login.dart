@@ -12,11 +12,11 @@ import '../../widgets/text_form_field/text_form_field.dart';
 class ScreenLogin extends StatelessWidget {
   ScreenLogin({super.key});
 
-  // Create an instance of the UserController using GetX
+  // Create an instance of the UserController using GetX -----------------------
   final userController = Get.put(UserController());
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // Private method to create the app logo image
+  // Private method to create the app logo image -------------------------------
   Widget _buildAppLogo() {
     return Center(
       child: Image.asset(
@@ -26,7 +26,7 @@ class ScreenLogin extends StatelessWidget {
     );
   }
 
-  // Private method to create the login button
+  // Private method to create the login button ---------------------------------
   Widget _buildLoginButton(context) {
     return KButtons.elevatedButton(
         text: 'Login',
@@ -38,21 +38,19 @@ class ScreenLogin extends StatelessWidget {
         });
   }
 
-  // Private method to create the "Logim" text and button
+  // Private method to create the "Logim" text and button ----------------------
   Widget _buildSignUpTextAndButton() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Are you admin?', // Change the text here
+          'Are you admin?',
           style: TextStyle(fontSize: 3.w, fontWeight: FontWeight.w500),
         ),
         TextButton(
-          onPressed: () {
-            // Implement the admin login logic here
-          },
+          onPressed: () {},
           child: Text(
-            'Login as Admin', // Change the button text here
+            'Login as Admin',
             style: TextStyle(
               fontSize: 3.2.w,
               fontWeight: FontWeight.w600,
