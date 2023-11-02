@@ -42,4 +42,4 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-lib\controller\razorpay_payment_gateway
+lib/controller/razorpay_payment_gateway
