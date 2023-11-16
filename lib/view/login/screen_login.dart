@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../res/images/images.dart';
+import '../../res/texts/texts.dart';
 import '../../widgets/buttons/buttons.dart';
-import '../../widgets/custom_appbar/custom_appBar.dart';
 import '../../widgets/text_form_field/text_form_field.dart';
 
 class ScreenLogin extends StatelessWidget {
@@ -17,12 +16,10 @@ class ScreenLogin extends StatelessWidget {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   // Private method to create the app logo image -------------------------------
-  Widget _buildAppLogo() {
-    return Center(
-      child: Image.asset(
-        KImages.appLogo,
-        width: 150,
-      ),
+  Widget _buildAppNameText() {
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      child: KText.applicationName,
     );
   }
 
@@ -65,27 +62,29 @@ class ScreenLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppBar(),
       body: Form(
         key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _buildAppLogo(),
-            TextFormFieldWidget(
-              title: 'User name',
-              hintText: 'Enter your username',
-              controller: userController.userName,
+        child: Center(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _buildAppNameText(),
+                TextFormFieldWidget(
+                  title: 'User name',
+                  hintText: 'Enter your username',
+                  controller: userController.userName,
+                ),
+                TextFormFieldWidget(
+                  title: 'Phone number',
+                  hintText: 'Enter your Phone number',
+                  controller: userController.phoneNumber,
+                  keyboardType: TextInputType.phone,
+                ),
+                _buildLoginButton(context),
+                _buildSignUpTextAndButton(),
+              ],
             ),
-            TextFormFieldWidget(
-              title: 'Phone number',
-              hintText: 'Enter your Phone number',
-              controller: userController.phoneNumber,
-              keyboardType: TextInputType.phone,
-            ),
-            _buildLoginButton(context),
-            _buildSignUpTextAndButton(),
-          ],
+          ),
         ),
       ),
     );

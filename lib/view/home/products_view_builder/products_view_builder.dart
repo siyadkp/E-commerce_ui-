@@ -27,22 +27,23 @@ class ProductListViewBuilder extends StatelessWidget {
           Expanded(
             child: Stack(
               children: [
-                GetBuilder<HomeController>(builder: (homeController) {
-                  return GetBuilder<CartController>(
-                    builder: (cartController) {
-                      if (homeController.productDatas.isEmpty) {
-                        return const Center(
-                            child: Text(
-                          'No Products Found',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey,
-                          ),
-                        ));
-                      }
-                      return NotificationListener<
-                              OverscrollIndicatorNotification>(
+                GetBuilder<HomeController>(
+                  builder: (homeController) {
+                    return GetBuilder<CartController>(
+                      builder: (cartController) {
+                        if (homeController.productDatas.isEmpty) {
+                          return const Center(
+                              child: Text(
+                            'No Products Found',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey,
+                            ),
+                          ));
+                        }
+                        return NotificationListener<
+                            OverscrollIndicatorNotification>(
                           onNotification: (overscroll) {
                             overscroll.disallowIndicator();
                             return true;
@@ -58,10 +59,12 @@ class ProductListViewBuilder extends StatelessWidget {
                               height: 10,
                             ),
                             itemCount: homeController.productDatas.length,
-                          ));
-                    },
-                  );
-                }),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
                 GetBuilder<CartController>(builder: (cartController) {
                   return Visibility(
                     visible: cartController.cartProducts.isNotEmpty,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   const TextFormFieldWidget(
@@ -16,6 +15,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final TextInputType keyboardType;
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
     return Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,7 +25,7 @@ class TextFormFieldWidget extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.w600),
           ),
           SizedBox(
-            width: 85.w,
+            width: screenWidth / 1.15,
             child: TextFormField(
               controller: controller,
               keyboardType: keyboardType,

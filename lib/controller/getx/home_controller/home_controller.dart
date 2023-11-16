@@ -34,6 +34,7 @@ class HomeController extends GetxController {
 
   Future<void> scanBarcode() async {
     searchBarTextEditingController.text = await BarcodeScanner.scanBarcode();
+
     update();
   }
 

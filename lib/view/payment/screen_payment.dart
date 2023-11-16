@@ -2,6 +2,7 @@ import 'package:ecommerce_ui/controller/getx/cart_controller/cart_controller.dar
 import 'package:ecommerce_ui/controller/getx/user_controller/user_controller.dart';
 import 'package:ecommerce_ui/routes/routes.dart';
 import 'package:ecommerce_ui/widgets/product_widget/product_widget.dart';
+import 'package:ecommerce_ui/widgets/search_bar/search_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -9,7 +10,6 @@ import 'package:sizer/sizer.dart';
 
 import '../../controller/razorpay_payment_gateway/razorpay_payment_gateway.dart';
 import '../../model/product_model/product_model.dart';
-import '../../widgets/custom_appbar/custom_appBar.dart';
 
 // ignore: must_be_immutable
 class ScreenPayment extends StatelessWidget {
@@ -77,37 +77,94 @@ class ScreenPayment extends StatelessWidget {
 
   // Builds the checkout header section ----------------------------------------
   Widget _buildCheckoutHeader(String items) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10),
-          child: GestureDetector(
-              onTap: () => Get.back(), child: const Icon(Icons.arrow_back)),
-        ),
-        const Text(
-          'Checkout',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-        ),
-        Text(
-          '$items Items',
-          style: const TextStyle(fontSize: 15),
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: GestureDetector(
+                    onTap: () => Get.back(),
+                    child: const Icon(Icons.arrow_back)),
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              const Text(
+                'Checkout',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: SearchBarWithButtonsWidget(hintText: ''),
+          ),
+          Text(
+            '$items Items',
+            style: const TextStyle(fontSize: 15),
+          ),
+        ],
+      ),
     );
   }
 
   // Builds the list of products in the cart -----------------------------------
   Widget _buildProductList(List<ProductModel> cartProducts) {
-    return Column(
-      children: List.generate(cartProducts.length, (index) {
-        return ProductWidget(productData: cartProducts[index]);
-      }),
+    return cartProducts.isEmpty
+        ? const Center(
+            child: Text(
+              'No Items in Your Cart',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.grey,
+              ),
+            ),
+          )
+        : ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: (context, index) =>
+                ProductWidget(productData: cartProducts[index]),
+            itemCount: cartProducts.length,
+          );
+  }
+
+  // Builds the payment button -------------------------------------------------
+  Widget _buildPaymentButton(double totalAmount, context) {
+    return SizedBox(
+      height: 50,
+      width: 40.w,
+      child: ElevatedButton(
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          ),
+          backgroundColor: MaterialStateProperty.all(Colors.green),
+        ),
+        onPressed: () {
+          razorPay(totalAmount);
+        },
+        child: const Text(
+          'Pay Now',
+          style: TextStyle(
+            color: Color.fromARGB(255, 255, 255, 255),
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     );
   }
 
   // Builds the total amount section and handles reward points -----------------
-  Widget _buildTotalAmount({required double amount}) {
+  Widget _buildTotalAmount(
+      {required double amount, required double totalAmount, context}) {
     double haifOftheAmount = amount / 2;
     double totalAmount = 0;
     if (userRewardPointes >= haifOftheAmount) {
@@ -119,84 +176,62 @@ class ScreenPayment extends StatelessWidget {
     }
     redeemedRewardPointes = double.parse(totalAmount.toStringAsFixed(2));
     totalAmount = double.parse(totalAmount.toStringAsFixed(2));
-    return Column(children: [
-      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        const Text(
-          'Amount',
-          style: TextStyle(fontSize: 17),
-        ),
-        Text(
-          amount.toString(),
-          style: const TextStyle(fontSize: 17),
-        ),
-      ]),
-      const SizedBox(
-        height: 5,
-      ),
-      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(
-          'Discount: ${redeemedRewardPointes.toString()} (-${redeemedRewardPointes.toString()} points)',
-          style: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
-        Text(
-          redeemedRewardPointes.toString(),
-          style: const TextStyle(
-            fontSize: 16,
-          ),
-        ),
-      ]),
-      const SizedBox(
-        height: 5,
-      ),
-      Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           const Text(
-            'Total',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            'Amount',
+            style: TextStyle(fontSize: 17),
           ),
           Text(
-            totalAmount.toString(),
-            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            amount.toString(),
+            style: const TextStyle(fontSize: 17),
           ),
-        ],
-      )
-    ]);
-  }
-
-  // Builds the payment button -------------------------------------------------
-  Widget _buildPaymentButton(double totalAmount, context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 40,
-      ),
-      child: SizedBox(
-        height: 50,
-        child: ElevatedButton(
-          style: ButtonStyle(
-            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(25.0),
-              ),
-            ),
-            backgroundColor: MaterialStateProperty.all(Colors.green),
-          ),
-          onPressed: () {
-            razorPay(totalAmount);
-          },
-          child: const Text(
-            'Pay Now',
-            style: TextStyle(
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+        ]),
+        const SizedBox(
+          height: 5,
         ),
-      ),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            'Discount: ${redeemedRewardPointes.toString()} (-${redeemedRewardPointes.toString()} points)',
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+          Text(
+            redeemedRewardPointes.toString(),
+            style: const TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ]),
+        const SizedBox(
+          height: 5,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  const Text(
+                    'Total Amount: ',
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  Text(
+                    totalAmount.toString(),
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
+              _buildPaymentButton(totalAmount, context)
+            ],
+          ),
+        )
+      ]),
     );
   }
 
@@ -204,56 +239,26 @@ class ScreenPayment extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: customAppBar(),
       body: SafeArea(
         child: GetBuilder<CartController>(
           builder: (cartController) {
-            if (cartController.cartProducts.isEmpty) {
-              return ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 18),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: GestureDetector(
-                      onTap: () => Get.back(),
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                  ),
-                  const Text(
-                    'Checkout',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-                  ),
-                  SizedBox(
-                    height: 35.h,
-                  ),
-                  const Center(
-                    child: Text(
-                      'No Items in Your Cart',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  )
-                ],
-              );
-            }
-            return ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _buildCheckoutHeader(
                     cartController.cartProducts.length.toString()),
                 const Divider(
                   thickness: 1,
+                  height: 0,
                 ),
-                _buildProductList(cartController.cartProducts.values.toList()),
+                Expanded(
+                    child: _buildProductList(
+                        cartController.cartProducts.values.toList())),
                 const Divider(thickness: 1),
-                _buildTotalAmount(amount: cartController.totalAmount),
-                _buildPaymentButton(
-                  cartController.totalAmount,
-                  context,
-                )
+                _buildTotalAmount(
+                    amount: cartController.totalAmount,
+                    totalAmount: cartController.totalAmount,
+                    context: context),
               ],
             );
           },

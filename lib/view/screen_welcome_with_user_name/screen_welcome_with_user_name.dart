@@ -50,7 +50,9 @@ class ScreenWelcomeWithUserName extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildWelcomeMessage(),
-            LottieBuilder.asset(KImages.serviceLottie),
+            LottieBuilder.asset(
+              KImages.serviceLottie,
+            ),
             Center(
               child: KButtons.outlineButton(
                 text: 'Edit Profile',

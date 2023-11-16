@@ -25,6 +25,7 @@ class ProductAddButtonWidget extends StatelessWidget {
                       content: Text('Your product added to cart'),
                     ),
                   );
+                  Get.back();
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(

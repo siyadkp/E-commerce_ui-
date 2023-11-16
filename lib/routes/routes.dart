@@ -1,3 +1,4 @@
+import 'package:ecommerce_ui/view/billing/screen_billing.dart';
 import 'package:ecommerce_ui/view/edit_profile/edit_profile.dart';
 import 'package:ecommerce_ui/view/home/screen_home.dart';
 import 'package:ecommerce_ui/view/login/screen_login.dart';
@@ -17,6 +18,7 @@ class AppRoutes {
   static const welcomeWithUserName = '/welcome_with_username';
   static const editUserProfile = '/edit_userprofile';
   static const itemScanning = '/item_scanning';
+  static const billing = '/billing';
   static const payment = '/payment';
 
   // Create a list of GetPage objects to configure your routes -----------------
@@ -31,5 +33,6 @@ class AppRoutes {
     GetPage(name: editUserProfile, page: () => ScreenEditUserProfile()),
     GetPage(name: itemScanning, page: () => ScreenHome()),
     GetPage(name: payment, page: () => ScreenPayment()),
+    GetPage(name: billing, page: () => ScreenBilling()),
   ];
 }

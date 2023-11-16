@@ -12,10 +12,11 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await DataBaseConnection.dataBaseConnection();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((_) {
-    runApp(const MyApp());
-  });
+  SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+  // SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
+  //     .then((_) {});
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
